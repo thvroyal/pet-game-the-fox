@@ -108,7 +108,7 @@ const gameState = {
     modFox('hungry');
   },
   poop() {
-    this.current = 'POOPING';
+    this.current = "POOPING";
     this.poopTime = -1;
     this.dieTime = getNextDieTime(this.clock);
     modFox('pooping');
@@ -121,7 +121,7 @@ const gameState = {
     writeModal("The fox died :( <br/> Pres the middle button to start");
   },
   startCelebrating() {
-    this.current = 'CELEBRATING';
+    this.current = "CELEBRATING";
     modFox('celebrating');
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = this.clock + 2;
