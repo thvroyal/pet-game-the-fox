@@ -1,5 +1,18 @@
-import { modFox, modScene, togglePoopBag, writeModal } from "./UI";
-import {RAIN_CHANCE, SCENES, DAY_LENGTH, NIGHT_LENGTH, getNextDieTime, getNextHungerTime, getNextPoopTime} from './constants';
+import {
+  modFox,
+  modScene,
+  togglePoopBag,
+  writeModal
+} from "./UI";
+import {
+  RAIN_CHANCE,
+  SCENES,
+  DAY_LENGTH,
+  NIGHT_LENGTH,
+  getNextDieTime,
+  getNextHungerTime,
+  getNextPoopTime
+} from './constants';
 
 
 const gameState = {
@@ -13,14 +26,13 @@ const gameState = {
   timeToStartCelebrating: -1,
   timeToEndCelebrating: -1,
   tick() {
-    this.clock ++ ;
-    console.log('clock', this.clock);
+    this.clock++;
 
     if (this.clock === this.wakeTime) {
       this.wake();
     } else if (this.clock === this.sleepTime) {
       this.sleep();
-    } else if (this.clock === this.hungryTime){
+    } else if (this.clock === this.hungryTime) {
       this.getHungry();
     } else if (this.clock === this.dieTime) {
       this.die();
@@ -45,17 +57,17 @@ const gameState = {
     this.wakeTime = -1;
     this.scene = Math.random() > RAIN_CHANCE ? 0 : 1;
     modScene(SCENES[this.scene]);
-    this.sleepTime = this.clock + DAY_LENGTH; 
+    this.sleepTime = this.clock + DAY_LENGTH;
     this.hungryTime = getNextHungerTime(this.clock);
     this.determineFoxState();
   },
-   changeWeather() {
+  changeWeather() {
     this.scene = this.scene + 1 % SCENES.length;
     modScene(SCENES[this.scene]);
     this.determineFoxState();
   },
   cleanUpPoop() {
-    if (!this.current === "POOPING"){
+    if (!this.current === "POOPING") {
       return;
     }
     this.dieTime = -1;
@@ -63,7 +75,7 @@ const gameState = {
     this.startCelebrating();
     this.hungryTime = getNextHungerTime(this.clock);
   },
-  clearTime(){
+  clearTime() {
     this.wakeTime = -1;
     this.sleepTime = -1;
     this.hungryTime = -1;
@@ -114,7 +126,7 @@ const gameState = {
     this.timeToStartCelebrating = -1;
     this.timeToEndCelebrating = this.clock + 2;
   },
-  endCelebrating () {
+  endCelebrating() {
     this.timeToEndCelebrating = -1;
     this.current = "IDLING";
     this.determineFoxState();
@@ -130,8 +142,8 @@ const gameState = {
     }
   },
   handleUserAction(icon) {
-    if (["SLEEP","FEEDING","CELEBRATING","HATCHING"]
-    .includes(this.current)) {
+    if (["SLEEP", "FEEDING", "CELEBRATING", "HATCHING"]
+      .includes(this.current)) {
       return;
     }
 
@@ -141,11 +153,11 @@ const gameState = {
     }
 
     switch (icon) {
-      case "weather": 
-      this.changeWeather();
-      break;
+      case "weather":
+        this.changeWeather();
+        break;
       case "poop":
-        this.cleanUpPoop() ;
+        this.cleanUpPoop();
         break;
       case "fish":
         this.feed();
