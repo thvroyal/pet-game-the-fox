@@ -82,13 +82,22 @@ body {
 
 .modal-inner {
   position: absolute;
-  top: 0;
+  top: 50px;
   left: 0;
   right: 0;
-  background-color: blueviolet;
+  padding: 20px;
+  background-color: rgb(113, 67, 241);
+  border-radius: 10px;
+  text-align: center;
   color: #fff;
 }
-
+.modal-inner:hover {
+  background-position: right center; 
+}
+.modal-inner h3 {
+  margin: 0;
+  font-size: 40px;
+}
 .modal:empty {
   display: none;
 }
